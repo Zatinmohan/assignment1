@@ -11,9 +11,7 @@ class MainContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: Get.width,
-      height: Get.height * 0.6,
+    return Expanded(
       child: GridView(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: Get.width / (Get.height / 1.5),

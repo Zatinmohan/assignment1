@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class MainPageController extends GetxController {
   RxList<AppData> data = RxList<AppData>();
   RxList<bool> switchData = RxList<bool>();
+  RxInt roomTemperature = 24.obs;
   @override
   void onInit() {
     List<String> items = ["Playstation", "HomePod", "MacBook Pro"];

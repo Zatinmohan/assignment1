@@ -1,3 +1,4 @@
+import 'package:assignment/ModelSheetData/modelSheetMain.dart';
 import 'package:assignment/misc/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,7 +33,20 @@ class UpperTitle extends StatelessWidget {
           ],
         ),
         ElevatedButton.icon(
-          onPressed: () => print("Add button pressed"),
+          onPressed: () {
+            showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: fontColor,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                )),
+                builder: (context) {
+                  return ModelSheetMain();
+                });
+          },
           icon: const Icon(Icons.add),
           label: const SizedBox.shrink(),
           style: ElevatedButton.styleFrom(
