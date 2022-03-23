@@ -17,6 +17,7 @@ class TVContainer extends StatelessWidget {
                 ? fontColor
                 : containerColor.withOpacity(0.75),
             borderRadius: BorderRadius.circular(20.0),
+            boxShadow: const [boxShadow],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

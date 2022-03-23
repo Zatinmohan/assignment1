@@ -10,24 +10,28 @@ class PlugWall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Container(
-        padding: const EdgeInsets.all(15.0),
-        decoration: BoxDecoration(
-          color: Get.find<MainPageController>().isYes(1)
-              ? fontColor
-              : containerColor.withOpacity(0.75),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TitleWidget(
-                title: Get.find<MainPageController>().fetchTitle(1), index: 1),
-            const SizedBox(height: 5.0),
-            WallList(),
-            const ToogleWidget(containerIndex: 1),
-          ],
-        )));
+    return Obx(() {
+      return Container(
+          padding: const EdgeInsets.all(15.0),
+          decoration: BoxDecoration(
+            color: Get.find<MainPageController>().isYes(1)
+                ? fontColor
+                : containerColor.withOpacity(0.75),
+            borderRadius: BorderRadius.circular(20.0),
+            boxShadow: const [boxShadow],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TitleWidget(
+                  title: Get.find<MainPageController>().fetchTitle(1),
+                  index: 1),
+              const SizedBox(height: 5.0),
+              WallList(),
+              const ToogleWidget(containerIndex: 1),
+            ],
+          ));
+    });
   }
 }
 

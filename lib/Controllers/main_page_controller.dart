@@ -11,10 +11,6 @@ class MainPageController extends GetxController {
   RxList<bool> switchData = RxList<bool>();
   RxInt roomTemperature = 24.obs;
 
-  // List<String> songsName = [
-  //   "assets/audio/stay.mp3",
-  //   "assets/audio/twoofus.mp3"
-  // ];
   Rx<AudioPlayer> audioPlayer = AudioPlayer().obs;
   RxList<MusicLibrary> musicData = RxList<MusicLibrary>();
 
@@ -22,6 +18,12 @@ class MainPageController extends GetxController {
   RxInt currentIndex = 0.obs;
   @override
   void onInit() {
+    _addData();
+    super.onInit();
+  }
+
+  //Adding all the static data
+  _addData() {
     musicData.add(MusicLibrary("Stay", "Post Malone", "assets/audio/stay.jpg",
         "assets/audio/stay.mp3"));
     musicData.add(MusicLibrary("Just The Two Of Us", "Grover Washington",
@@ -36,11 +38,12 @@ class MainPageController extends GetxController {
     for (int i = 0; i < data.length; i++) {
       switchData.add(data[i].toogleValue ?? false);
     }
-    super.onInit();
   }
 
+  //Fetch Data
   String fetchTitle(int v) => data[v].boxHeading;
 
+  //Fetch different data for different containers
   fetchSubTitle(int v) {
     switch (v) {
       case 0:
@@ -52,6 +55,7 @@ class MainPageController extends GetxController {
     }
   }
 
+  //Fetch the length of lists
   int get listLength =>
       data[1].getListofFiles.length > 4 ? 4 : data[1].getListofFiles.length;
 
@@ -62,6 +66,7 @@ class MainPageController extends GetxController {
   //Container Logic using Switch
   bool isYes(int index) => switchData[index];
 
+  //Login behind playing music
   play() async {
     try {
       ByteData data =
@@ -114,6 +119,7 @@ class MainPageController extends GetxController {
     }
   }
 
+  //Fetching Music Details
   String get albumCover => musicData[currentIndex.value].imageCover;
   String get singerName => musicData[currentIndex.value].singerName;
   String get songName => musicData[currentIndex.value].songName;

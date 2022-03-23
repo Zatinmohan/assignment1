@@ -1,10 +1,6 @@
-import 'dart:typed_data';
-
 import 'package:assignment/Controllers/main_page_controller.dart';
 import 'package:assignment/misc/colors.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class MusicBox extends StatelessWidget {
@@ -12,14 +8,12 @@ class MusicBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AudioPlayer audioPlayer = new AudioPlayer();
-
     return Container(
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
-        color: containerColor.withOpacity(0.75),
-        borderRadius: BorderRadius.circular(20.0),
-      ),
+          color: containerColor.withOpacity(0.75),
+          borderRadius: BorderRadius.circular(20.0),
+          boxShadow: const [boxShadow]),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -70,43 +64,51 @@ class MusicBox extends StatelessWidget {
                           overflow: TextOverflow.fade,
                         ),
                       )),
-                  Expanded(
-                      child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Row(
-                      children: [
-                        IconButton(
-                            onPressed: () =>
-                                Get.find<MainPageController>().rewind(),
-                            icon: const Icon(
-                              Icons.fast_rewind,
-                              color: fontColor,
-                            )),
-                        Obx(
-                          () => IconButton(
-                              onPressed: (() =>
-                                  Get.find<MainPageController>().play()),
-                              icon: Icon(
-                                Get.find<MainPageController>().isPlaying.isFalse
-                                    ? Icons.play_arrow
-                                    : Icons.pause,
-                                color: fontColor,
-                              )),
-                        ),
-                        IconButton(
-                            onPressed: (() =>
-                                Get.find<MainPageController>().forward()),
-                            icon: const Icon(
-                              Icons.fast_forward,
-                              color: fontColor,
-                            )),
-                      ],
-                    ),
-                  ))
+                  const MusicControlsWidget()
                 ],
               )),
         ],
       ),
     );
+  }
+}
+
+class MusicControlsWidget extends StatelessWidget {
+  const MusicControlsWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        child: Align(
+      alignment: Alignment.bottomCenter,
+      child: Row(
+        children: [
+          IconButton(
+              onPressed: () => Get.find<MainPageController>().rewind(),
+              icon: const Icon(
+                Icons.fast_rewind,
+                color: fontColor,
+              )),
+          Obx(
+            () => IconButton(
+                onPressed: (() => Get.find<MainPageController>().play()),
+                icon: Icon(
+                  Get.find<MainPageController>().isPlaying.isFalse
+                      ? Icons.play_arrow
+                      : Icons.pause,
+                  color: fontColor,
+                )),
+          ),
+          IconButton(
+              onPressed: (() => Get.find<MainPageController>().forward()),
+              icon: const Icon(
+                Icons.fast_forward,
+                color: fontColor,
+              )),
+        ],
+      ),
+    ));
   }
 }

@@ -44,7 +44,7 @@ class UpperTitle extends StatelessWidget {
                   topRight: Radius.circular(20.0),
                 )),
                 builder: (context) {
-                  return ModelSheetMain();
+                  return const ModelSheetMain();
                 });
           },
           icon: const Icon(Icons.add),
@@ -52,7 +52,7 @@ class UpperTitle extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.all(0),
             primary: containerColor.withOpacity(0.65),
-            shadowColor: fontColor,
+            shadowColor: fontColor.withOpacity(0.8),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0)),
           ),
