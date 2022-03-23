@@ -1,7 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:assignment/Controllers/main_page_controller.dart';
-import 'package:assignment/MainPage/Widgets/titleWidget.dart';
 import 'package:assignment/misc/colors.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class MusicBox extends StatelessWidget {
@@ -9,18 +12,101 @@ class MusicBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AudioPlayer audioPlayer = new AudioPlayer();
+
     return Container(
-        padding: const EdgeInsets.all(15.0),
-        decoration: BoxDecoration(
-          color: containerColor.withOpacity(0.75),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TitleWidget(
-                title: Get.find<MainPageController>().fetchTitle(2), index: 2),
-          ],
-        ));
+      padding: const EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        color: containerColor.withOpacity(0.75),
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Flexible(
+            flex: 2,
+            child: Obx(() => Container(
+                  width: Get.width * 0.2,
+                  height: Get.width * 0.2,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(
+                            Get.find<MainPageController>().albumCover)),
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                )),
+          ),
+          const SizedBox(height: 4.0),
+          Flexible(
+              flex: 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  FittedBox(
+                      fit: BoxFit.contain,
+                      child: Obx(
+                        () => Text(
+                          Get.find<MainPageController>().songName,
+                          style: TextStyle(
+                            color: fontColor,
+                            fontSize: Get.width * 0.055,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          overflow: TextOverflow.fade,
+                        ),
+                      )),
+                  const SizedBox(height: 3.0),
+                  FittedBox(
+                      fit: BoxFit.contain,
+                      child: Obx(
+                        () => Text(
+                          Get.find<MainPageController>().singerName,
+                          style: TextStyle(
+                            color: fontColor,
+                            fontSize: Get.width * 0.048,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          overflow: TextOverflow.fade,
+                        ),
+                      )),
+                  Expanded(
+                      child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () =>
+                                Get.find<MainPageController>().rewind(),
+                            icon: const Icon(
+                              Icons.fast_rewind,
+                              color: fontColor,
+                            )),
+                        Obx(
+                          () => IconButton(
+                              onPressed: (() =>
+                                  Get.find<MainPageController>().play()),
+                              icon: Icon(
+                                Get.find<MainPageController>().isPlaying.isFalse
+                                    ? Icons.play_arrow
+                                    : Icons.pause,
+                                color: fontColor,
+                              )),
+                        ),
+                        IconButton(
+                            onPressed: (() =>
+                                Get.find<MainPageController>().forward()),
+                            icon: const Icon(
+                              Icons.fast_forward,
+                              color: fontColor,
+                            )),
+                      ],
+                    ),
+                  ))
+                ],
+              )),
+        ],
+      ),
+    );
   }
 }
