@@ -1,4 +1,4 @@
-import 'package:assignment/View/DetailPage/result_main.dart';
+import 'package:assignment/View/DetailPage/MainResult.dart';
 import 'package:assignment/misc/colors.dart';
 import 'package:flutter/material.dart';
 
