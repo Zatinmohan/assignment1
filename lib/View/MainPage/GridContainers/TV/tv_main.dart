@@ -1,6 +1,7 @@
-import 'package:assignment/Controllers/main_page_controller.dart';
-import 'package:assignment/MainPage/Widgets/titleWidget.dart';
-import 'package:assignment/MainPage/Widgets/toogleWidget.dart';
+import 'package:assignment/Controllers/main_controller.dart';
+import 'package:assignment/View/MainPage/Widgets/title_widget.dart';
+import 'package:assignment/View/MainPage/Widgets/toggle_widget.dart';
+
 import 'package:assignment/misc/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,7 +35,7 @@ class TVContainer extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     fontSize: Get.width * 0.05,
                   )),
-              const ToogleWidget(containerIndex: 3),
+              const ToggleWidget(containerIndex: 3),
             ],
           ),
         ));

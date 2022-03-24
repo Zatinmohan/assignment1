@@ -1,7 +1,8 @@
-import 'package:assignment/Routes/routes.dart';
 import 'package:assignment/misc/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+
+import 'Misc/Routes/routes.dart';
 
 void main() {
   runApp(const MyApp());

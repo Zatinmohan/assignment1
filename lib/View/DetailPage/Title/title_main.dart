@@ -1,7 +1,8 @@
-import 'package:assignment/ModelSheetData/Widgets/toogleButton.dart';
 import 'package:assignment/misc/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'custom_toggle_button.dart';
 
 class ModalTitleWidget extends StatelessWidget {
   const ModalTitleWidget({Key? key}) : super(key: key);

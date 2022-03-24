@@ -1,21 +1,21 @@
 import 'dart:typed_data';
-
-import 'package:assignment/Model/data.dart';
-import 'package:assignment/Model/musicLibrary.dart';
+import 'package:assignment/Model/app_model.dart';
+import 'package:assignment/Model/music_model.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class MainPageController extends GetxController {
-  RxList<AppData> data = RxList<AppData>();
-  RxList<bool> switchData = RxList<bool>();
+  RxList<AppData> appData = RxList<AppData>();
+  RxList<bool> toggleSwitchData = RxList<bool>();
   RxInt roomTemperature = 24.obs;
 
   Rx<AudioPlayer> audioPlayer = AudioPlayer().obs;
   RxList<MusicLibrary> musicData = RxList<MusicLibrary>();
 
-  RxBool isPlaying = false.obs;
-  RxInt currentIndex = 0.obs;
+  RxBool isPlaying = false.obs; //For Music
+  RxInt currentIndex = 0.obs; //Music Library
+
   @override
   void onInit() {
     _addData();
@@ -23,51 +23,57 @@ class MainPageController extends GetxController {
   }
 
   //Adding all the static data
-  _addData() {
+  void _addData() {
+    //Music Data
     musicData.add(MusicLibrary("Stay", "Post Malone", "assets/audio/stay.jpg",
         "assets/audio/stay.mp3"));
     musicData.add(MusicLibrary("Just The Two Of Us", "Grover Washington",
         "assets/audio/twoofus.jpg", "assets/audio/twoofus.mp3"));
 
+    //Item List data for WallPlug Container
     List<String> items = ["Playstation", "HomePod", "MacBook Pro"];
-    data.add(AppData("Room Temperature", true, "25"));
-    data.add(AppData("Plug Wall", false, null, items));
-    data.add(AppData("Music", null, null, null));
-    data.add(AppData("Smart TV", false, "Samsung AX54", null));
 
-    for (int i = 0; i < data.length; i++) {
-      switchData.add(data[i].toogleValue ?? false);
+    //Other Container Data used in Grid View
+    appData.add(AppData("Room Temperature", true, "25"));
+    appData.add(AppData("Plug Wall", false, null, items));
+    appData.add(AppData("Music", null, null, null));
+    appData.add(AppData("Smart TV", false, "Samsung AX54", null));
+
+    //Toggle Switch Data
+    for (int i = 0; i < appData.length; i++) {
+      toggleSwitchData.add(appData[i].toogleValue ?? false);
     }
   }
 
   //Fetch Data
-  String fetchTitle(int v) => data[v].boxHeading;
+  String fetchTitle(int v) => appData[v].boxHeading;
 
   //Fetch different data for different containers
-  fetchSubTitle(int v) {
+  dynamic fetchSubTitle(int v) {
     switch (v) {
       case 0:
-        return data[v].temperature;
+        return appData[v].temperature;
       case 1:
-        return data[v].getListofFiles;
+        return appData[v].getListofFiles;
       default:
-        return data[v].temperature;
+        return appData[v].temperature;
     }
   }
 
   //Fetch the length of lists
-  int get listLength =>
-      data[1].getListofFiles.length > 4 ? 4 : data[1].getListofFiles.length;
+  int get listLength => appData[1].getListofFiles.length > 4
+      ? 4
+      : appData[1].getListofFiles.length;
 
   void changeSwitchData(int index, bool value) {
-    switchData[index] = value;
+    toggleSwitchData[index] = value;
   }
 
   //Container Logic using Switch
-  bool isYes(int index) => switchData[index];
+  bool isYes(int index) => toggleSwitchData[index];
 
   //Login behind playing music
-  play() async {
+  void play() async {
     try {
       ByteData data =
           await rootBundle.load(musicData[currentIndex.value].audioPath);
@@ -81,11 +87,12 @@ class MainPageController extends GetxController {
         isPlaying.value = !isPlaying.value;
       }
     } catch (e) {
-      Get.snackbar("Can't Play Music", "Try after some time!");
+      showErrorMessage();
     }
   }
 
-  forward() async {
+  //Music Forward Logic
+  void forward() async {
     if (isPlaying.isTrue) {
       currentIndex.value = currentIndex.value + 1;
       if (currentIndex.value > 1) currentIndex.value = 1;
@@ -97,11 +104,14 @@ class MainPageController extends GetxController {
         await audioPlayer.value
             .stop()
             .then((value) => audioPlayer.value.playBytes(audiobytes));
-      } catch (e) {}
+      } catch (e) {
+        showErrorMessage();
+      }
     }
   }
 
-  rewind() async {
+  //Music Rewind Logic
+  void rewind() async {
     if (isPlaying.isTrue) {
       currentIndex.value = currentIndex.value - 1;
       if (currentIndex.value < 0) currentIndex.value = 0;
@@ -114,9 +124,15 @@ class MainPageController extends GetxController {
             .stop()
             .then((value) => audioPlayer.value.playBytes(audiobytes));
       } catch (e) {
-        Get.snackbar("Error!", "Can't go back to the song");
+        showErrorMessage();
       }
     }
+  }
+
+  //Common Error Message
+  void showErrorMessage() {
+    Get.snackbar("Can't Play Music", "Try after some time!",
+        snackPosition: SnackPosition.BOTTOM);
   }
 
   //Fetching Music Details

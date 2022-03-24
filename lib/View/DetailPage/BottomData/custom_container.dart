@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomContainers extends StatelessWidget {
+  // ignore_for_file: prefer_typing_uninitialized_variables
   final title, value, icons;
   const CustomContainers(
       {Key? key, required this.title, required this.value, this.icons})

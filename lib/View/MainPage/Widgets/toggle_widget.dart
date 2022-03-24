@@ -1,11 +1,11 @@
-import 'package:assignment/Controllers/main_page_controller.dart';
-import 'package:assignment/misc/colors.dart';
+import 'package:assignment/Controllers/main_controller.dart';
+import 'package:assignment/Misc/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ToogleWidget extends StatelessWidget {
+class ToggleWidget extends StatelessWidget {
   final int containerIndex;
-  const ToogleWidget({Key? key, required this.containerIndex})
+  const ToggleWidget({Key? key, required this.containerIndex})
       : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class ToogleWidget extends StatelessWidget {
                   child: Switch(
                     activeColor: selectedColor,
                     value: Get.find<MainPageController>()
-                        .switchData[containerIndex],
+                        .toggleSwitchData[containerIndex],
                     onChanged: (bool value) => Get.find<MainPageController>()
                         .changeSwitchData(containerIndex, value),
                   ),

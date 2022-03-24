@@ -1,6 +1,6 @@
-import 'package:assignment/Controllers/main_page_controller.dart';
-import 'package:assignment/MainPage/Widgets/titleWidget.dart';
-import 'package:assignment/MainPage/Widgets/toogleWidget.dart';
+import 'package:assignment/Controllers/main_controller.dart';
+import 'package:assignment/View/MainPage/Widgets/title_widget.dart';
+import 'package:assignment/View/MainPage/Widgets/toggle_widget.dart';
 import 'package:assignment/misc/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,8 +27,8 @@ class PlugWall extends StatelessWidget {
                   title: Get.find<MainPageController>().fetchTitle(1),
                   index: 1),
               const SizedBox(height: 5.0),
-              WallList(),
-              const ToogleWidget(containerIndex: 1),
+              const WallList(),
+              const ToggleWidget(containerIndex: 1),
             ],
           ));
     });
@@ -47,16 +47,16 @@ class WallList extends StatelessWidget {
           child: ListView.builder(
             itemCount: Get.find<MainPageController>().listLength,
             itemBuilder: (BuildContext context, int index) {
-              List<String> temp =
+              List<String> items =
                   Get.find<MainPageController>().fetchSubTitle(1);
               return Container(
                 padding: const EdgeInsets.all(2.0),
                 child: Text(
-                  "• ${temp[index]}",
+                  "• ${items[index]}",
                   style: TextStyle(
                     color: Get.find<MainPageController>().isYes(1)
-                        ? darkFontColor
-                        : fontColor,
+                        ? fontColor
+                        : darkFontColor,
                     fontWeight: FontWeight.w400,
                     fontSize: Get.width * 0.045,
                   ),

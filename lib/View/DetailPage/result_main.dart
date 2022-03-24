@@ -1,7 +1,7 @@
-import 'package:assignment/ModelSheetData/bottom_data.dart';
-import 'package:assignment/ModelSheetData/tempeartureDial.dart';
-import 'package:assignment/ModelSheetData/title.dart';
 import 'package:flutter/material.dart';
+import 'BottomData/bottom_data_main.dart';
+import 'TempDial/temperature_dial.dart';
+import 'Title/title_main.dart';
 
 class ModelSheetMain extends StatelessWidget {
   const ModelSheetMain({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class ModelSheetMain extends StatelessWidget {
       maxChildSize: 1,
       expand: false,
       builder: (_, controller) => Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(children: const [
           ModalTitleWidget(),
           SizedBox(height: 10.0),
@@ -24,6 +24,5 @@ class ModelSheetMain extends StatelessWidget {
         ]),
       ),
     );
-    ;
   }
 }

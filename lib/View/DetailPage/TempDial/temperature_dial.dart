@@ -1,6 +1,4 @@
-import 'dart:math';
-
-import 'package:assignment/Controllers/main_page_controller.dart';
+import 'package:assignment/Controllers/main_controller.dart';
 import 'package:assignment/misc/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

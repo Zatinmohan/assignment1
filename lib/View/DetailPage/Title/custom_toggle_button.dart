@@ -1,4 +1,4 @@
-import 'package:assignment/Controllers/main_page_controller.dart';
+import 'package:assignment/Controllers/main_controller.dart';
 import 'package:assignment/misc/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +12,7 @@ class BottomSheetToogleButton extends StatelessWidget {
       scale: 1.5,
       child: Switch(
         activeColor: selectedColor,
-        value: Get.find<MainPageController>().switchData[0],
+        value: Get.find<MainPageController>().toggleSwitchData[0],
         onChanged: (bool value) =>
             Get.find<MainPageController>().changeSwitchData(0, value),
       ),
